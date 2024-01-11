@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Axessing.Data;
 using Axessing.Models.Schema;
+using Axessing.Services.TicketUnit.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -11,26 +12,37 @@ namespace Axessing.Controllers;
 public class TicketController : BaseApiController
 {
     private readonly ApplicationDbContext context;
+    private readonly ITicketMaster master;
     private readonly IMapper mapper;
-    public TicketController(ApplicationDbContext context, IMapper mapper)
+    public TicketController(ApplicationDbContext context, IMapper mapper, ITicketMaster master)
     {
         this.context = context;
         this.mapper = mapper;
+        this.master = master;
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Ticket>>> GetTickets()
+    public async Task<ActionResult<List<Ticket>>> GetTickets(int workspaceid, bool? backlog)
     {
-        return await context.Tickets.ToListAsync();
+        var tickets = await master.GetTicketsAsync(workspaceid, backlog ?? false);
+        return tickets != null ? tickets : NotFound();
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Ticket>> GetTicketById(int id)
     {
-        return await context.Tickets.FindAsync(id);
+        var ticket = await master.GetTicketByIdAsync(id);
+        return ticket != null ? Ok(ticket) : NotFound();
+    }
+
+    [HttpGet, Route("getStages")]
+    public IActionResult GetStages()
+    {
+        return Ok(Enum.GetNames(typeof(Stage)).Cast<string>().ToList());
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateTicket([FromBody, Bind("Title,Description")] Ticket ticket)
     {
         var mapped = mapper.Map<Ticket>(ticket);

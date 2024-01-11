@@ -6,7 +6,6 @@ public enum Stage
     Open,
     Doing,
     Impediment,
-    Testing,
     Review,
     Done
 }

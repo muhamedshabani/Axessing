@@ -1,4 +1,8 @@
 using Axessing.Data;
+using Axessing.Services.TicketUnit.Interface;
+using Axessing.Services.TicketUnit.Repository;
+using Axessing.Services.WorkspaceUnit.Interface;
+using Axessing.Services.WorkspaceUnit.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,10 +15,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
 
+builder.Services.AddTransient<ITicketMaster, TicketMaster>();
+builder.Services.AddTransient<IWorkspaceMaster, WorkspaceMaster>();
+
 var connectionString = builder.Configuration.GetConnectionString("SqliteConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlite(connectionString);
+    options.EnableSensitiveDataLogging();
 });
 
 builder.Services.AddCors(options =>
@@ -38,9 +46,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("CorsPolicy");
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

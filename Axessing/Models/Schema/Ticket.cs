@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Axessing.Models.Schema;
 
@@ -14,8 +17,12 @@ public class Ticket
     public string Description { get; set; } = string.Empty;
     public DateTime CreatedDate { get; set; } = DateTime.Now;
     public DateTime LastModifiedDate { get; set; }
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public Stage Stage { get; set; }
 
     // Relationship
     public ICollection<Label> Labels { get; set; } = new List<Label>();
+    [ForeignKey("WorkspaceId")]
+    public Workspace Workspace { get; set; } = new Workspace();
+    public int WorkspaceId { get; set; }
 }
