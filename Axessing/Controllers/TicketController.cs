@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Axessing.Data;
+using Axessing.Models.Resource.InputModels;
 using Axessing.Models.Schema;
 using Axessing.Services.TicketUnit.Interface;
 using Microsoft.AspNetCore.Mvc;
@@ -11,12 +12,10 @@ namespace Axessing.Controllers;
 
 public class TicketController : BaseApiController
 {
-    private readonly ApplicationDbContext context;
     private readonly ITicketMaster master;
     private readonly IMapper mapper;
     public TicketController(ApplicationDbContext context, IMapper mapper, ITicketMaster master)
     {
-        this.context = context;
         this.mapper = mapper;
         this.master = master;
     }
@@ -42,19 +41,22 @@ public class TicketController : BaseApiController
     }
 
     [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> CreateTicket([FromBody, Bind("Title,Description")] Ticket ticket)
+    public async Task<IActionResult> CreateTicket([FromBody]TicketInputModel ticket)
     {
-        var mapped = mapper.Map<Ticket>(ticket);
-        context.Tickets.Add(mapped);
-        await context.SaveChangesAsync();
+        var mapped = mapper.Map<TicketInputModel, Ticket>(ticket);
+
+        // Initial stage is always Open
+        mapped.Stage = Stage.Open;
+
+        master.CreateTicket(mapped);
+        await master.SaveChangesAsync();
         return Ok();
     }
 
     [HttpPut]
     public async Task<IActionResult> EditTicket(int id, [FromBody, Bind("Title,Description,Stage")] Ticket ticket)
     {
-        Ticket? current = context.Tickets.Find(id);
+        Ticket? current = master.GetTicketById(id);
         if (current == null)
         {
             return NotFound();
@@ -63,8 +65,8 @@ public class TicketController : BaseApiController
         try
         {
             current = mapper.Map<Ticket>(ticket);
-            context.Tickets.Update(current);
-            await context.SaveChangesAsync();
+            master.UpdateTicket(id, current);
+            await master.SaveChangesAsync();
         }
         catch (Exception ex)
         {
@@ -77,7 +79,7 @@ public class TicketController : BaseApiController
     [HttpDelete]
     public async Task<IActionResult> DeleteTicket(int id)
     {
-        var ticket = context.Tickets.Find(id);
+        var ticket = master.GetTicketById(id);
         if (ticket == null)
         {
             return NotFound();
@@ -85,9 +87,8 @@ public class TicketController : BaseApiController
 
         try
         {
-            //context.DeletedTickets.Add(ticket);
-            context.Tickets.Remove(ticket);
-            await context.SaveChangesAsync();
+            master.DeleteTicket(ticket.Id);
+            await master.SaveChangesAsync();
         }
         catch (Exception ex)
         {

@@ -28,7 +28,7 @@ public class ApplicationDbContext : DbContext
             workspace
         });
 
-        /*modelBuilder.Entity<Ticket>().HasData(new List<Ticket>()
+        modelBuilder.Entity<Ticket>().HasData(new List<Ticket>()
         {
             new Ticket
             {
@@ -39,6 +39,7 @@ public class ApplicationDbContext : DbContext
                 CreatedDate = DateTime.Now,
                 LastModifiedDate = DateTime.Now,
                 Stage = Stage.Open
+                
             },
             new Ticket
             {
@@ -109,7 +110,7 @@ public class ApplicationDbContext : DbContext
                 LastModifiedDate = DateTime.Now,
                 Stage = Stage.Done
             },
-        });*/
+        });
 
         base.OnModelCreating(modelBuilder);
     }

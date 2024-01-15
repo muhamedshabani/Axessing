@@ -12,5 +12,5 @@ public class Label
     public string HexValue { get; set; } = string.Empty;
 
     // Relationship
-    public ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
+    public ICollection<Ticket> Tickets { get; set; }
 }

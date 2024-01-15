@@ -131,9 +131,9 @@ namespace Axessing.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 1, 8, 4, 46, 53, 67, DateTimeKind.Local).AddTicks(9008),
+                            CreatedDate = new DateTime(2024, 1, 12, 2, 36, 34, 236, DateTimeKind.Local).AddTicks(5914),
                             Description = "Lorem ipsum dolor sit amet at avis mia seguind ralf cuspat en colo lat gerda mecant e.",
-                            LastModifiedDate = new DateTime(2024, 1, 8, 4, 46, 53, 67, DateTimeKind.Local).AddTicks(9010),
+                            LastModifiedDate = new DateTime(2024, 1, 12, 2, 36, 34, 236, DateTimeKind.Local).AddTicks(5915),
                             Stage = 1,
                             Title = "Create new dashboard",
                             WorkspaceId = 1
@@ -141,9 +141,9 @@ namespace Axessing.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 1, 8, 4, 46, 53, 67, DateTimeKind.Local).AddTicks(9015),
+                            CreatedDate = new DateTime(2024, 1, 12, 2, 36, 34, 236, DateTimeKind.Local).AddTicks(5921),
                             Description = "Lorem ipsum dolor sit amet at avis mia seguind ralf cuspat en colo lat gerda mecant e.",
-                            LastModifiedDate = new DateTime(2024, 1, 8, 4, 46, 53, 67, DateTimeKind.Local).AddTicks(9017),
+                            LastModifiedDate = new DateTime(2024, 1, 12, 2, 36, 34, 236, DateTimeKind.Local).AddTicks(5922),
                             Stage = 2,
                             Title = "Change state of data models",
                             WorkspaceId = 1
@@ -151,19 +151,19 @@ namespace Axessing.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 1, 8, 4, 46, 53, 67, DateTimeKind.Local).AddTicks(9049),
+                            CreatedDate = new DateTime(2024, 1, 12, 2, 36, 34, 236, DateTimeKind.Local).AddTicks(5925),
                             Description = "Lorem ipsum dolor sit amet at avis mia seguind ralf cuspat en colo lat gerda mecant e.",
-                            LastModifiedDate = new DateTime(2024, 1, 8, 4, 46, 53, 67, DateTimeKind.Local).AddTicks(9050),
-                            Stage = 1,
+                            LastModifiedDate = new DateTime(2024, 1, 12, 2, 36, 34, 236, DateTimeKind.Local).AddTicks(5926),
+                            Stage = 0,
                             Title = "Type state error when accessing ticket",
                             WorkspaceId = 1
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 1, 8, 4, 46, 53, 67, DateTimeKind.Local).AddTicks(9053),
+                            CreatedDate = new DateTime(2024, 1, 12, 2, 36, 34, 236, DateTimeKind.Local).AddTicks(5928),
                             Description = "Lorem ipsum dolor sit amet at avis mia seguind ralf cuspat en colo lat gerda mecant e.",
-                            LastModifiedDate = new DateTime(2024, 1, 8, 4, 46, 53, 67, DateTimeKind.Local).AddTicks(9074),
+                            LastModifiedDate = new DateTime(2024, 1, 12, 2, 36, 34, 236, DateTimeKind.Local).AddTicks(5929),
                             Stage = 0,
                             Title = "Git log error after update",
                             WorkspaceId = 1
@@ -171,29 +171,29 @@ namespace Axessing.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 1, 8, 4, 46, 53, 67, DateTimeKind.Local).AddTicks(9077),
+                            CreatedDate = new DateTime(2024, 1, 12, 2, 36, 34, 236, DateTimeKind.Local).AddTicks(5932),
                             Description = "Lorem ipsum dolor sit amet at avis mia seguind ralf cuspat en colo lat gerda mecant e.",
-                            LastModifiedDate = new DateTime(2024, 1, 8, 4, 46, 53, 67, DateTimeKind.Local).AddTicks(9078),
-                            Stage = 0,
+                            LastModifiedDate = new DateTime(2024, 1, 12, 2, 36, 34, 236, DateTimeKind.Local).AddTicks(5933),
+                            Stage = 4,
                             Title = "Wishlist sharing problems",
                             WorkspaceId = 1
                         },
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2024, 1, 8, 4, 46, 53, 67, DateTimeKind.Local).AddTicks(9083),
+                            CreatedDate = new DateTime(2024, 1, 12, 2, 36, 34, 236, DateTimeKind.Local).AddTicks(5937),
                             Description = "Lorem ipsum dolor sit amet at avis mia seguind ralf cuspat en colo lat gerda mecant e.",
-                            LastModifiedDate = new DateTime(2024, 1, 8, 4, 46, 53, 67, DateTimeKind.Local).AddTicks(9084),
-                            Stage = 0,
+                            LastModifiedDate = new DateTime(2024, 1, 12, 2, 36, 34, 236, DateTimeKind.Local).AddTicks(5938),
+                            Stage = 3,
                             Title = "Telegram does not accept list of type x",
                             WorkspaceId = 1
                         },
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2024, 1, 8, 4, 46, 53, 67, DateTimeKind.Local).AddTicks(9087),
+                            CreatedDate = new DateTime(2024, 1, 12, 2, 36, 34, 236, DateTimeKind.Local).AddTicks(5940),
                             Description = "Lorem ipsum dolor sit amet at avis mia seguind ralf cuspat en colo lat gerda mecant e.",
-                            LastModifiedDate = new DateTime(2024, 1, 8, 4, 46, 53, 67, DateTimeKind.Local).AddTicks(9088),
+                            LastModifiedDate = new DateTime(2024, 1, 12, 2, 36, 34, 236, DateTimeKind.Local).AddTicks(5941),
                             Stage = 0,
                             Title = "Button color palette should be changed",
                             WorkspaceId = 1
@@ -201,10 +201,10 @@ namespace Axessing.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2024, 1, 8, 4, 46, 53, 67, DateTimeKind.Local).AddTicks(9090),
+                            CreatedDate = new DateTime(2024, 1, 12, 2, 36, 34, 236, DateTimeKind.Local).AddTicks(5944),
                             Description = "Lorem ipsum dolor sit amet at avis mia seguind ralf cuspat en colo lat gerda mecant e.",
-                            LastModifiedDate = new DateTime(2024, 1, 8, 4, 46, 53, 67, DateTimeKind.Local).AddTicks(9091),
-                            Stage = 0,
+                            LastModifiedDate = new DateTime(2024, 1, 12, 2, 36, 34, 236, DateTimeKind.Local).AddTicks(5945),
+                            Stage = 5,
                             Title = "Account appears only when logged in",
                             WorkspaceId = 1
                         });

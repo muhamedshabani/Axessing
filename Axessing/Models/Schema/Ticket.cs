@@ -21,8 +21,8 @@ public class Ticket
     public Stage Stage { get; set; }
 
     // Relationship
-    public ICollection<Label> Labels { get; set; } = new List<Label>();
+    public ICollection<Label> Labels { get; set; }
     [ForeignKey("WorkspaceId")]
-    public Workspace Workspace { get; set; } = new Workspace();
+    public Workspace Workspace { get; set; }
     public int WorkspaceId { get; set; }
 }

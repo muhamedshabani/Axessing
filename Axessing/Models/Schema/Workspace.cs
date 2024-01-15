@@ -13,6 +13,6 @@ public class Workspace
     public string LogoURL { get; set; } = string.Empty;
 
     // Relationship
-    public ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
-    public ICollection<AppUser> Collaborators { get; set; } = new List<AppUser>();
+    public ICollection<Ticket> Tickets { get; set; }
+    public ICollection<AppUser> Collaborators { get; set; }
 }

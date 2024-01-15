@@ -18,5 +18,5 @@ public class Attachment
     // Relationship
     public int TicketId { get; set; }
     [ForeignKey(nameof(TicketId))]
-    public Ticket Ticket { get; set; } = new Ticket();
+    public Ticket Ticket { get; set; }
 }
