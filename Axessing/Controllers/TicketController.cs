@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using Axessing.Data;
+using Axessing.Models.Resource;
 using Axessing.Models.Resource.InputModels;
 using Axessing.Models.Schema;
-using Axessing.Services.TicketUnit.Interface;
+using Axessing.Services.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -12,32 +13,26 @@ namespace Axessing.Controllers;
 
 public class TicketController : BaseApiController
 {
-    private readonly ITicketMaster master;
+    private readonly IHelper<Ticket> master;
     private readonly IMapper mapper;
-    public TicketController(ApplicationDbContext context, IMapper mapper, ITicketMaster master)
+    public TicketController(ApplicationDbContext context, IMapper mapper, IHelper<Ticket> master)
     {
         this.mapper = mapper;
         this.master = master;
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Ticket>>> GetTickets(int workspaceid, bool? backlog)
+    public ActionResult<List<Ticket>> GetTickets(int workspaceid, bool? backlog)
     {
-        var tickets = await master.GetTicketsAsync(workspaceid, backlog ?? false);
-        return tickets != null ? tickets : NotFound();
+        var tickets = master.GetAll(new RequestParams { WorkspaceId = workspaceid, Backlog = backlog ?? false });
+        return tickets != null ? Ok(tickets) : NotFound();
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Ticket>> GetTicketById(int id)
+    public ActionResult<Ticket> GetTicketById(int id)
     {
-        var ticket = await master.GetTicketByIdAsync(id);
+        var ticket = master.Get(id);
         return ticket != null ? Ok(ticket) : NotFound();
-    }
-
-    [HttpGet, Route("getStages")]
-    public IActionResult GetStages()
-    {
-        return Ok(Enum.GetNames(typeof(Stage)).Cast<string>().ToList());
     }
 
     [HttpPost]
@@ -48,15 +43,15 @@ public class TicketController : BaseApiController
         // Initial stage is always Open
         mapped.Stage = Stage.Open;
 
-        master.CreateTicket(mapped);
-        await master.SaveChangesAsync();
+        master.Create(mapped);
+        await master.SaveAsync();
         return Ok();
-    }
+    } 
 
     [HttpPut]
     public async Task<IActionResult> EditTicket(int id, [FromBody, Bind("Title,Description,Stage")] Ticket ticket)
     {
-        Ticket? current = master.GetTicketById(id);
+        Ticket? current = master.Get(id);
         if (current == null)
         {
             return NotFound();
@@ -65,8 +60,8 @@ public class TicketController : BaseApiController
         try
         {
             current = mapper.Map<Ticket>(ticket);
-            master.UpdateTicket(id, current);
-            await master.SaveChangesAsync();
+            master.Update(id, current);
+            await master.SaveAsync();
         }
         catch (Exception ex)
         {
@@ -79,7 +74,7 @@ public class TicketController : BaseApiController
     [HttpDelete]
     public async Task<IActionResult> DeleteTicket(int id)
     {
-        var ticket = master.GetTicketById(id);
+        var ticket = master.Get(id);
         if (ticket == null)
         {
             return NotFound();
@@ -87,14 +82,20 @@ public class TicketController : BaseApiController
 
         try
         {
-            master.DeleteTicket(ticket.Id);
-            await master.SaveChangesAsync();
-        }
+            master.Delete(ticket.Id);
+            await master.SaveAsync();
+        } 
         catch (Exception ex)
         {
             return BadRequest(new DBConcurrencyException(ex.Message));
         }
 
         return Ok();
+    }
+
+    [HttpGet, Route("getStages")]
+    public IActionResult GetStages()
+    {
+        return Ok(Enum.GetNames(typeof(Stage)).Cast<string>().ToList());
     }
 }

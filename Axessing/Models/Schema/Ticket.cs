@@ -17,7 +17,6 @@ public class Ticket
     public string Description { get; set; } = string.Empty;
     public DateTime CreatedDate { get; set; } = DateTime.Now;
     public DateTime LastModifiedDate { get; set; }
-    [JsonConverter(typeof(JsonStringEnumConverter))]
     public Stage Stage { get; set; }
 
     // Relationship

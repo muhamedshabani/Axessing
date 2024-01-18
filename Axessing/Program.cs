@@ -1,22 +1,17 @@
 using Axessing.Data;
-using Axessing.Services.TicketUnit.Interface;
-using Axessing.Services.TicketUnit.Repository;
-using Axessing.Services.WorkspaceUnit.Interface;
-using Axessing.Services.WorkspaceUnit.Repository;
+using Axessing.Models.Schema;
+using Axessing.Services.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
 
-builder.Services.AddTransient<ITicketMaster, TicketMaster>();
-builder.Services.AddTransient<IWorkspaceMaster, WorkspaceMaster>();
+builder.Services.AddTransient<IHelper<Ticket>, TicketMaster>();
+builder.Services.AddTransient<IHelper<Workspace>, WorkspaceMaster>();
 
 var connectionString = builder.Configuration.GetConnectionString("SqliteConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -38,7 +33,6 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

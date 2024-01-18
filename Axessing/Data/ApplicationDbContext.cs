@@ -13,7 +13,7 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Ticket>().HasKey(t => t.Id);
         modelBuilder.Entity<Ticket>().HasOne(t => t.Workspace).WithMany(w => w.Tickets).HasForeignKey(t => t.WorkspaceId);
 
-        modelBuilder.Entity<Workspace>().HasMany(w => w.Tickets).WithOne(t => t.Workspace);
+        modelBuilder.Entity<Workspace>().HasMany(w => w.Tickets).WithOne(t => t.Workspace).OnDelete(DeleteBehavior.Cascade);
 
         var workspace = new Workspace
         {

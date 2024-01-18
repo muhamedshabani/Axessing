@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
 using Axessing.Models.Resource.InputModels;
 using Axessing.Models.Schema;
-using Axessing.Services.WorkspaceUnit.Interface;
+using Axessing.Services.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Axessing.Controllers;
 
 public class WorkspaceController : BaseApiController
 {
-    private readonly IWorkspaceMaster master;
+    private readonly IHelper<Workspace> master;
     private readonly IMapper mapper;
-    public WorkspaceController(IWorkspaceMaster master, IMapper mapper)
+    public WorkspaceController(IHelper<Workspace> master, IMapper mapper)
     {
         this.master = master;
         this.mapper = mapper;
@@ -19,17 +19,17 @@ public class WorkspaceController : BaseApiController
     [HttpGet]
     public IActionResult GetWorkspaceById(int id)
     {
-        return Ok(master.GetWorkspaceById(id));
+        return Ok(master.Get(id));
     }
 
     [HttpPost]
-    public IActionResult CreateWorkspace([FromBody]WorkspaceInputModel workspace)
+    public async Task<IActionResult> CreateWorkspace([FromBody]WorkspaceInputModel workspace)
     {
         var mapped = mapper.Map<Workspace>(workspace);
         try
         {
-            master.CreateWorkspace(mapped);
-            master.SaveChangesAsync();
+            master.Create(mapped);
+            await master.SaveAsync();
         }
         catch(Exception)
         {
