@@ -17,5 +17,8 @@ public class Mapper : Profile
             .ForMember(t => t.CreatedDate, opt => opt.MapFrom(t => t.CreatedDate))
             .ForMember(t => t.LastModifiedDate, opt => opt.MapFrom(t => t.LastModifiedDate))
             .ForMember(t => t.WorkspaceId, opt => opt.MapFrom(t => t.WorkspaceId));
+        CreateMap<Workspace, Workspace>();
+        CreateMap<Workspace, WorkspaceViewModel>();
+        CreateMap<WorkspaceInputModel, Workspace>();
     }
 }
