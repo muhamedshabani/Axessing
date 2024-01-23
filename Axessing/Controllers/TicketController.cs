@@ -2,10 +2,12 @@
 using Axessing.Data;
 using Axessing.Models.Resource;
 using Axessing.Models.Resource.InputModels;
+using Axessing.Models.Resource.ViewModels;
 using Axessing.Models.Schema;
 using Axessing.Services.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using System.Data;
 using System.Net.Sockets;
 
@@ -25,7 +27,8 @@ public class TicketController : BaseApiController
     public ActionResult<List<Ticket>> GetTickets(int workspaceid, bool? backlog)
     {
         var tickets = master.GetAll(new RequestParams { WorkspaceId = workspaceid, Backlog = backlog ?? false });
-        return tickets != null ? Ok(tickets) : NotFound();
+        var mapped = mapper.Map<List<TicketViewModel>>(tickets);
+        return tickets != null ? Ok(mapped) : NotFound();
     }
 
     [HttpGet("{id}")]
