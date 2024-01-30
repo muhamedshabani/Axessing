@@ -20,5 +20,6 @@ public class Mapper : Profile
         CreateMap<Workspace, Workspace>();
         CreateMap<Workspace, WorkspaceViewModel>();
         CreateMap<WorkspaceInputModel, Workspace>();
+        CreateMap<AppUser, AppUserViewModel>();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Axessing.Models.Resource.InputModels;
+using Axessing.Models.Resource.ViewModels;
 using Axessing.Models.Schema;
 using Axessing.Services.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,9 @@ public class WorkspaceController : BaseApiController
     [HttpGet]
     public IActionResult GetWorkspaceById(int id)
     {
-        return Ok(master.Get(id));
+        var workspace = master.Get(id);
+        var mapped = mapper.Map<WorkspaceViewModel>(workspace);
+        return Ok(mapped);
     }
 
     [HttpPost]

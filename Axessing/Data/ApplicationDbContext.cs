@@ -21,7 +21,41 @@ public class ApplicationDbContext : DbContext
             Name = "Axessing - Monorepo",
             Description = "Lorem ipsum dolor sit amet.",
             LogoURL = "https://png.pngtree.com/png-vector/20221119/ourmid/pngtree-aa-letter-logos-png-image_6471608.png",
-       };
+        };
+
+        modelBuilder.Entity<AppUser>().HasKey(t => t.Id);
+        modelBuilder.Entity<AppUser>().HasData(new List<AppUser>
+        {
+            new AppUser
+            {
+                WorkspaceId = 1,
+                Id = "100",
+                Name = "Muhamed Shabani",
+                UserName = "omuj",
+                NormalizedUserName = "MUHAMEDSH",
+                Email = "muhamed.shaban@hotmail.com",
+                NormalizedEmail = "MUHAMED.SHABAN@HOTMAIL.COM",
+                EmailConfirmed = true,
+                AccessFailedCount = 0,
+                PhoneNumber = "+389 71 894 975",
+                PhoneNumberConfirmed = true,
+
+            },
+            new AppUser
+            {
+                WorkspaceId = 1,
+                Id = "101",
+                Name = "Agon Podgragja",
+                UserName = "pogi",
+                NormalizedUserName = "POGI",
+                Email = "podgragja.a@hotmail.com",
+                NormalizedEmail = "PODGRAGJA.A@HOTMAIL.COM",
+                EmailConfirmed = true,
+                AccessFailedCount = 0,
+                PhoneNumber = "+389 71 818 819",
+                PhoneNumberConfirmed = true,
+            }
+        });
 
         modelBuilder.Entity<Workspace>().HasData(new List<Workspace>()
         {

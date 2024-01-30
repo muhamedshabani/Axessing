@@ -1,6 +1,7 @@
 ﻿using Axessing.Data;
 using Axessing.Models.Resource;
 using Axessing.Models.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace Axessing.Services.UnitOfWork;
 
@@ -14,7 +15,7 @@ public class WorkspaceMaster : IHelper<Workspace>
 
     public Workspace Get(int id)
     {
-        var workspace = context.Workspaces.Find(id);
+        var workspace = context.Workspaces.Include(w => w.Collaborators).FirstOrDefault(w => w.Id == id);
         return workspace;
     }
 
